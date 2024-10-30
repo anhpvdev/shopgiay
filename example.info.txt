@@ -1,0 +1,12 @@
+giày:
++ mã giày
++ thương hiệu
++ màu sắc
++ hình ảnh
++ size
++ giá
+
+giỏ hàng
++ mã giày
++ số lượng
++ giá
