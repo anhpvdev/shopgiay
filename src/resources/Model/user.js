@@ -1,6 +1,9 @@
 const path = require('path')
 const mongoose = require('../../config/connect_db')
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser');
 const { change_password } = require('./buyer')
+
 
 const Productschema = new mongoose.Schema({
     ten: { type: String, required: true },
@@ -24,7 +27,6 @@ const Productschema = new mongoose.Schema({
 
 const Userschema = new mongoose.Schema({
     ten_dang_nhap: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
     mat_khau: { type: String, required: true },
     dia_chi: { type: String },
     so_dien_thoai: { type: String },
@@ -44,11 +46,17 @@ const UserServices = {
         res.render(path.join(__dirname+"../../views/404.ejs"))
     },
     home: async (req, res) => {
-
+      console.log(req.login)
+        
         const  listproduct = mongoose.model('sanphams', Productschema)
             listproduct.find({}).then((dataa)=>{
-                console.log(dataa)
-                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa})
+            
+               if(req.login){
+                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id})
+               }else{
+                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null})
+               }
+               
             })
     },
 
@@ -59,12 +67,16 @@ const UserServices = {
         const  listproduct = mongoose.model('sanphams', Productschema)
             listproduct.findById(idpr).then((dataa)=>{
                 console.log(dataa)
-                return res.render(path.join(__dirname+"../../views/Users/detail.ejs"),{data:dataa})
+                if(req.login){
+                  return res.render(path.join(__dirname+"../../views/Users/detail.ejs"),{data:dataa,user:req.login.id})
+                }else{
+                  return res.render(path.join(__dirname+"../../views/Users/detail.ejs"),{data:dataa,user:null})
+                }
             })
     },
     cart: async (req, res) => {
         
-        var idus= req.params.id
+        var idus= req.login.id
         console.log(idus)
         const  listcart = mongoose.model('nguoidungs', Userschema)
         listcart.findById(idus).then((dataa)=>{
@@ -121,7 +133,7 @@ const UserServices = {
             { _id: userid },
             {
               $pull: {
-                gio_hang: { san_pham_id: id } // Loại bỏ sản phẩm có san_pham_id tương ứng
+                gio_hang: { san_pham_id: id } 
               }
             },
             { new: true }
@@ -131,6 +143,79 @@ const UserServices = {
        
 
     },
+
+
+    registry: async (req, res) => {
+      var {name,pass} = req.body
+      console.log(name,pass)
+      
+      const  listcart = mongoose.model('nguoidungs', Userschema)
+
+      try {
+        const existingUser = await listcart.findOne({ ten_dang_nhap: name });
+    
+        if (existingUser) {
+          return res.render(path.join(__dirname+"../../views/Users/registry.ejs"),{message:"Tài khoản đã tồn tại"})
+        }else{
+          const newUser = new listcart({
+            ten_dang_nhap: name, // Sử dụng email làm tên đăng nhập
+            mat_khau: pass,
+            dia_chi: '', 
+            so_dien_thoai: '',
+            gio_hang: [] 
+          });
+      
+          await newUser.save();
+          res.render(path.join(__dirname+"../../views/Users/registry.ejs"),{message:"Tài khoản đã được tạo thành công."})
+        }
+    
+      } catch (error) {
+        console.log(error)
+        return res.render(path.join(__dirname+"../../views/404.ejs"))
+      }
+  },
+
+  logout: async (req, res) => {
+
+    res.cookie('token', '');
+
+        return res.redirect("/")
+},
+
+  login: async (req, res) => {
+    var {name,pass} = req.body
+    console.log(name,pass)
+    
+    const  listcart = mongoose.model('nguoidungs', Userschema)
+
+    try {
+      const User = await listcart.findOne({ ten_dang_nhap: name });
+  
+      if (!User) {
+        return res.render(path.join(__dirname+"../../views/Users/login.ejs"),{message:"Tài khoản không tồn tại"})
+      }else{
+        if(User.mat_khau != pass){
+          return res.render(path.join(__dirname+"../../views/Users/login.ejs"),{message:"Mật khẩu không chính xác"})
+        }
+
+
+        const token = jwt.sign({ id: User._id }, 'thuy_ke_tu', { expiresIn: '1h' });
+        console.log(token)
+
+        res.cookie('token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production', 
+          maxAge: 3600000 
+        });
+
+        return res.redirect("/")
+      }
+  
+    } catch (error) {
+      console.log(error)
+      return res.render(path.join(__dirname+"../../views/404.ejs"))
+    }
+},
    
     
 

@@ -1,0 +1,36 @@
+[
+
+    {
+        "_id": "ObjectId()",
+        "ten": "Air Max 2024",
+        "thuong_hieu": "Nike",
+        "loai": "Giày chạy bộ",
+        "kich_thuoc": [38, 39, 40, 41, 42],
+        "mau_sac": ["Đen", "Trắng", "Đỏ"],
+        "gia": 120.00,
+        "so_luong_ton": 50,
+        "mo_ta": "Giày chạy bộ thoải mái và phong cách.",
+        "hinh_anh": [
+            "image1_url",
+            "image2_url"
+            ]
+    },
+
+  {
+    "_id": "ObjectId()",
+    "ten_dang_nhap": "abc@gmail.com",
+    "mat_khau": "123123",
+    "dia_chi": "abc",
+    "so_dien_thoai": "0xxxxxxxxxx",
+    "gio_hang": [
+      {
+        "san_pham_id": "ObjectId()",
+        "so_luong": 2,
+        "gia": 120.00,
+        "hinh_anh":"image2_url"
+      }
+    ]
+  }
+
+
+]

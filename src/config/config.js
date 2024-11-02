@@ -1,9 +1,12 @@
 const express = require("express");
 const path = require("path");
+const cookieParser = require('cookie-parser');
+
 
 const config = (app) => {
   app.use( express.urlencoded({ extended: true }));
   app.use(express.json());
+  app.use(cookieParser())
   
   // setup views for server using handlebars template
   app.set('view engine', 'ejs');
