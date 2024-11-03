@@ -1,23 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-    <h1>cart</h1>
-    
-    <% for(var i = 0; i < data.length; i++) { %>
-      <form action="./delete" method="post">
-        <b><%= data[i].san_pham_id %></b><br>
-        <b><%= data[i].so_luong %></b><br>
-        <b><%= data[i].gia %></b><br>
-        <input type="text" name="userid" value="67223e3208d044b09d3f1154" hidden="hidden">
-        <input type="text" name="id" value="<%= data[i].san_pham_id %>" hidden="hidden">
-        <button type="submit">xóa</button>
-    </form>
-      <h1>------------------</h1>
-    <% } %> 
-</body>
+  <head>
+    <title>Giỏ hàng</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"
+    />
+    <link rel="stylesheet" href="../../../public/fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="../../../public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../public/css/magnific-popup.css" />
+    <link rel="stylesheet" href="../../../public/css/jquery-ui.css" />
+    <link rel="stylesheet" href="../../../public/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="../../../public/css/owl.theme.default.min.css" />
+
+    <link rel="stylesheet" href="../../../public/css/aos.css" />
+
+    <link rel="stylesheet" href="../../../public/css/style.css" />
+  </head>
+  <body>
+    <div class="site-wrap">
+      <header class="site-navbar" role="banner">
+        <div class="site-navbar-top">
+          <div class="container">
+            <div class="row align-items-center">
+              <div
+                class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left"
+              >
+                <form action="" class="site-block-top-search">
+                  <span class="icon icon-search2"></span>
+                  <input
+                    type="text"
+                    class="form-control border-0"
+                    placeholder="Tìm kiếm"
+                  />
+                </form>
+              </div>
+
+              <div
+                class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center"
+              >
+                <div class="site-logo">
+                  <a href="index.html" class="js-logo-clone">Bán giày</a>
+                </div>
+              </div>
+
+              <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                <div class="site-top-icons">
+                  <ul>
+                    <% if (user) { %>
+                      <li>
+                        <a href="#"><span class="icon icon-person"></span></a>
+                      </li>
+                      <li>
+                        <a href="#"><span class="icon icon-heart-o"></span></a>
+                      </li>
+                      <li>
+                        <a href="/cart" class="site-cart">
+                          <span class="icon icon-shopping_cart"></span>
+                          <span class="count">2</span>
+                        </a>
+                      </li>
+                      <li class="d-inline-block d-md-none ml-md-0">
+                        <a href="#" class="site-menu-toggle js-menu-toggle"
+                          ><span class="icon-menu"></span
+                        ></a>
+                      </li>
+                    <% } else { %>
+                      <p><a href="/login">Đăng Nhập</a></p>
+                    <% } %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav
+          class="site-navigation text-right text-md-center"
+          role="navigation"
+        >
+          <div class="container">
+            <ul class="site-menu js-clone-nav d-none d-md-block">
+              <li class="">
+                <a href="/">TRANG CHỦ</a>
+              </li>
+
+              <li class="">
+                <a>Giới thiệu</a>
+              </li>
+              <li><a href="shop.html">Cửa hàng</a></li>
+
+              <li><a href="#"> Hàng mới đến</a></li>
+              <li><a>Liên hệ</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <div class="bg-light py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 mb-0">
+              <a href="index.html">Trang chủ</a> <span class="mx-2 mb-0">/</span>
+              <strong class="text-black">Giỏ hàng</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-section">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-md-12">
+              <div class="site-blocks-table">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th class="product-thumbnail">Ảnh</th>
+                      <th class="product-name">Sản phẩm</th>
+                      <th class="product-price">Giá</th>
+                      <th class="product-quantity">Số lượng</th>
+                      <th class="product-total">Giá tiền</th>
+                      <th class="product-price">Sizes</th>
+                      <th class="product-remove">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i = 0; i < data.length; i++) { %>
+                    
+                      <h1>------------------</h1>
+                      <tr>
+                        <td class="product-thumbnail">
+                          <img
+                            src="../../../public/images/Products/<%= data[i].hinh_anh %>"
+                            alt="Image"
+                            class="img-fluid"
+                          />
+                        </td>
+                        <td class="product-name">
+                          <h2 class="h5 text-black"><%= data[i].ten %></h2>
+                        </td>
+                        <td><%= data[i].gia %></td>
+                        <td>
+                          <div class="input-group mb-3" style="max-width: 120px">
+                            <div class="input-group-prepend">
+                              <button
+                                class="btn btn-outline-primary js-btn-minus"
+                                type="button"
+                              >
+                                &minus;
+                              </button>
+                            </div>
+                            <input
+                              type="text"
+                              class="form-control text-center"
+                              value="<%= data[i].so_luong %>"
+                              placeholder=""
+                              aria-label="Example text with button addon"
+                              aria-describedby="button-addon1"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-primary js-btn-plus"
+                                type="button"
+                              >
+                                &plus;
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                        <td><%= data[i].gia * data[i].so_luong%></td>
+                        <td><h2 class="h5 text-black"><%= data[i].kich_thuoc %></h2></td>
+                         
+                        <td>
+                          <form action="/products/delete" method="post">
+                            <input type="text" name="size" value="<%= data[i].kich_thuoc %>" hidden="hidden">
+                            <input type="text" name="id" value="<%= data[i].san_pham_id %>" hidden="hidden">
+                            <button class="btn btn-primary btn-sm" type="submit">X</button>
+                        </form>
+                        </td>
+                      </tr>
+                    <% } %> 
+
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mb-5">
+                <div class="col-md-6 mb-3 mb-md-0">
+                  <button class="btn btn-primary btn-sm btn-block">
+                    Cập nhật giỏ hàng
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-outline-primary btn-sm btn-block">
+                    Tiếp tục mua sắm
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="text-black h4" for="coupon">Phiếu giảm giá</label>
+                  <p>Nhập mã phiếu giảm giá của bạn nếu bạn có</p>
+                </div>
+                <div class="col-md-8 mb-3 mb-md-0">
+                  <input
+                    type="text"
+                    class="form-control py-3"
+                    id="coupon"
+                    placeholder="Mã phiếu giảm giá"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <button class="btn btn-primary btn-sm">Áp dụng phiếu giảm giá</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 pl-5">
+              <div class="row justify-content-end">
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-12 text-right border-bottom mb-5">
+                      <h3 class="text-black h4 text-uppercase">Tổng số giỏ hàng</h3>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <span class="text-black">Tổng phụ</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">3.000.000 VNĐ</strong>
+                    </div>
+                  </div>
+                  <div class="row mb-5">
+                    <div class="col-md-6">
+                      <span class="text-black">Tổng cộng</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">3.000.000 VNĐ</strong>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button
+                        class="btn btn-primary btn-lg py-3 btn-block"
+                        onclick="window.location='checkout.html'"
+                      >
+                        Thanh toán
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="site-footer border-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3 class="footer-heading mb-4">Điều hướng</h3>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <ul class="list-unstyled">
+                    <li><a href="#">Bán trực tuyến</a></li>
+                    <li><a href="#">Đặc trưng</a></li>
+                    <li><a href="#">Giỏ hàng</a></li>
+                    <li><a href="#">Người xây dựng</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <ul class="list-unstyled">
+                    <li><a href="#">Thương mại di động</a></li>
+                    <li><a href="#">Thả vận chuyển</a></li>
+                    <li><a href="#">Phát triển trang web</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <ul class="list-unstyled">
+                    <li><a href="#">Điểm bán hàng</a></li>
+                    <li><a href="#">Phần cứng</a></li>
+                    <li><a href="#">Phần mềm</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+              <h3 class="footer-heading mb-4">Khuyến mãi</h3>
+              <a href="#" class="block-6">
+                <img
+                  src="images/hero_1.jpg"
+                  alt="Image placeholder"
+                  class="img-fluid rounded mb-4"
+                />
+                <h3 class="font-weight-light mb-0">
+                  Tìm đôi giày hoàn hảo của bạn
+                </h3>
+                <p>Khuyễn mãi từ 15 &mdash; 25, 2024</p>
+              </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="block-5 mb-5">
+                <h3 class="footer-heading mb-4">Thông tin liên hệ</h3>
+                <ul class="list-unstyled">
+                  <li class="address">
+                    48 Cao Thắng, Thanh Bình, Hải Châu, Đà Nẵng 550000
+                  </li>
+                  <li class="phone">
+                    <a href="tel://0236 3822 571">+0236 3822 571</a>
+                  </li>
+                  <li class="email">emailaddress@ute.com</li>
+                </ul>
+              </div>
+
+              <div class="block-7">
+                <form action="#" method="post">
+                  <label for="email_subscribe" class="footer-heading"
+                    >Đặt mua</label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control py-4"
+                      id="email_subscribe"
+                      placeholder="Email"
+                    />
+                    <input
+                      type="submit"
+                      class="btn btn-sm btn-primary"
+                      value="Gửi"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+      </footer>
+    </div>
+
+    <script src="./public/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="./public/Scripts/jquery-ui.js"></script>
+    <script src="./public/Scripts/popper.min.js"></script>
+    <script src="./public/Scripts/bootstrap.min.js"></script>
+    <script src="./public/Scripts/owl.carousel.min.js"></script>
+    <script src="./public/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="./public/Scripts/aos.js"></script>
+
+    <script src="./public/Scripts/main.js"></script>
+  </body>
 </html>

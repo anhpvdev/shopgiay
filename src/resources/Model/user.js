@@ -33,8 +33,11 @@ const Userschema = new mongoose.Schema({
     gio_hang: [
       {
         san_pham_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+        ten:{ type: String , required: true},
         so_luong: { type: Number, required: true },
-        gia: { type: Number, required: true }
+        gia: { type: Number, required: true },
+        hinh_anh:{ type: String , required: true},
+        kich_thuoc:{ type: Number, required: true },
       }
     ]
 })
@@ -81,21 +84,24 @@ const UserServices = {
         const  listcart = mongoose.model('nguoidungs', Userschema)
         listcart.findById(idus).then((dataa)=>{
                 console.log(dataa.gio_hang)
-                return res.render(path.join(__dirname+"../../views/Users/cart.ejs"),{data:dataa.gio_hang})
+                return res.render(path.join(__dirname+"../../views/Users/cart.ejs"),{data:dataa.gio_hang,user:idus})
             })
     },
 
     addcart: async (req, res) => {
-        var {userid,id,number,price} = req.body
-        console.log(userid,id,number,price)
+      var userid = req.login.id
+      console.log(userid)
+      var {product,name,size,num,price,image} = req.body
+        console.log(product,size,num,price,image)
         
         const  listcart = mongoose.model('nguoidungs', Userschema)
         listcart.findOneAndUpdate(
             { _id: userid,
-            "gio_hang.san_pham_id": id
+            "gio_hang.san_pham_id": product,
+            "gio_hang.kich_thuoc": size
              },
             {
-                $inc: { "gio_hang.$.so_luong": number }
+                $inc: { "gio_hang.$.so_luong": num }
             },
             { new: true }
         ).then((dataa)=>{
@@ -106,18 +112,21 @@ const UserServices = {
                     {
                       $push: {
                         gio_hang: {
-                          san_pham_id: id,
-                          so_luong: number,
+                          san_pham_id: product,
+                          ten: name,
+                          hinh_anh: image,
+                          kich_thuoc:size,
+                          so_luong: num,
                           gia: price
                         }
                       }
                     },
                     { new: true }
                   ).then((dataa)=>{
-                    return res.redirect("/cart/67223e3208d044b09d3f1154")
+                    return res.redirect("/cart")
                   });
             }else{
-                return res.redirect("/cart/67223e3208d044b09d3f1154")
+                return res.redirect("/cart")
             }
             
         })
@@ -125,20 +134,23 @@ const UserServices = {
     },
 
     deletecart: async (req, res) => {
-        var {userid,id} = req.body
-        console.log(userid,id)
+      var idus= req.login.id
+        var {id,size} = req.body
+        console.log(idus,id,size)
         
         const  listcart = mongoose.model('nguoidungs', Userschema)
         listcart.findOneAndUpdate(
-            { _id: userid },
+            { _id: idus},
             {
               $pull: {
-                gio_hang: { san_pham_id: id } 
+                gio_hang: { san_pham_id: id,
+                           kich_thuoc: size
+                 } 
               }
             },
             { new: true }
           ).then((dataa)=>{
-            return res.redirect("/cart/67223e3208d044b09d3f1154")
+            return res.redirect("/cart")
           });
        
 

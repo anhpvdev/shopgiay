@@ -38,7 +38,7 @@
                   <input
                     type="text"
                     class="form-control border-0"
-                    placeholder="Search"
+                    placeholder="Tìm kiếm"
                   />
                 </form>
               </div>
@@ -47,7 +47,7 @@
                 class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center"
               >
                 <div class="site-logo">
-                  <a href="index.html" class="js-logo-clone">Sale Shoe</a>
+                  <a href="index.html" class="js-logo-clone">Bán giày</a>
                 </div>
               </div>
 
@@ -87,17 +87,17 @@
         >
           <div class="container">
             <ul class="site-menu js-clone-nav d-none d-md-block">
-              <li class="has-children active">
-                <a href="index.html">Home</a>
+              <li class="">
+                <a href="index.html">TRANG CHỦ</a>
               </li>
 
-              <li class="has-children">
-                <a>About</a>
+              <li class="">
+                <a>Giới thiệu</a>
               </li>
-              <li><a href="shop.html">Shop</a></li>
-              <li><a href="#">category </a></li>
-              <li><a href="#">New Arrivals</a></li>
-              <li><a>Contact</a></li>
+              <li><a href="shop.html">Cửa hàng</a></li>
+
+              <li><a href="#"> Hàng mới đến</a></li>
+              <li><a>Liên hệ</a></li>
             </ul>
           </div>
         </nav>
@@ -107,7 +107,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12 mb-0">
-              <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
+              <a href="index.html">Trang chủ</a> <span class="mx-2 mb-0">/</span>
               <strong class="text-black">Sneakers</strong>
             </div>
           </div>
@@ -120,24 +120,25 @@
             <div class="col-md-6">
               <img src="../../../public/images/Products/<%= data.hinh_anh[0] %>" alt="Image" class="img-fluid" />
             </div>
-            <div class="col-md-6">
+            <form class="col-md-6" action="/products/add" method="post">
               <h2 class="text-black"><%= data.ten %></h2>
               <p>
                 <%= data.mo_ta %>
               </p>
-              
-              <p><strong class="text-primary h4">$<%= data.gia %></strong></p>
+             
+              <p><strong class="text-primary h4"><%= data.gia %> VNĐ</strong></p>
               <h1 style="font-size: 24px; font-style: normal; color: #333">
-                Please choose size
+                Kích thước
               </h1>
 
               <div class="size-selection d-flex flex-wrap">
                 <% for(var i = 0; i < data.kich_thuoc.length; i++) { %>
-                  <label for="size-37" class="size-option">
-                    <input type="radio" id="size-37" name="shop-sizes" />
+                  <label for="size-<%= data.kich_thuoc[i] %>" class="size-option">
+                    <input type="radio" id="size-<%= data.kich_thuoc[i] %>" name="size" value="<%= data.kich_thuoc[i] %>"/>
                     <span> <%= data.kich_thuoc[i] %></span>
                   </label> 
-                <% } %> 
+                <% } %>
+
                 
               </div>
 
@@ -152,6 +153,7 @@
                     </button>
                   </div>
                   <input
+                    name="num"
                     type="text"
                     class="form-control text-center"
                     value="1"
@@ -159,7 +161,12 @@
                     aria-label="Example text with button addon"
                     aria-describedby="button-addon1"
                   />
+                  <input type="text" name="product" value="<%= data._id %>" hidden="hidden">
+                  <input type="text" name="price" value="<%= data.gia %>" hidden="hidden">
+                  <input type="text" name="image" value="<%= data.hinh_anh[0] %>" hidden="hidden">
                   <div class="input-group-append">
+                   
+                    <input type="text" name="name" value=" <%= data.ten %>" hidden="hidden">
                     <button
                       class="btn btn-outline-primary js-btn-plus"
                       type="button"
@@ -170,11 +177,12 @@
                 </div>
               </div>
               <p>
-                <a href="cart.html" class="buy-now btn btn-sm btn-primary"
-                  >Add To Cart</a
-                >
+                <!-- <a href="cart.html" class="buy-now btn btn-sm btn-primary"
+                  >Thêm vào giỏ hàng</a
+                > -->
+                <button type="submit" class="buy-now btn btn-sm btn-primary">Thêm vào giỏ hàng</button>
               </p>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -183,7 +191,7 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-7 site-section-heading text-center pt-4">
-              <h2>Featured Products</h2>
+              <h2> Sản phẩm nổi bật</h2>
             </div>
           </div>
           <div class="row">
@@ -194,14 +202,14 @@
                     <figure class="block-4-image">
                       <img
                         src="images/image1713154286794.webp"
-                        alt="Image placeholder"
+                        alt="Ảnh sản phẩm"
                         class="img-fluid"
                       />
                     </figure>
                     <div class="block-4-text p-4">
-                      <h3><a href="#"> Orlee</a></h3>
-                      <p class="mb-0">Find the right Clarks shoes</p>
-                      <p class="text-primary font-weight-bold">$50</p>
+                      <h3><a href="#">Giày Da Cổ Điển</a></h3>
+                      <p class="mb-0">Thiết kế phong cách và thoải mái</p>
+                      <p class="text-primary font-weight-bold">1.950.000 VNĐ</p>
                     </div>
                   </div>
                 </div>
@@ -210,14 +218,14 @@
                     <figure class="block-4-image">
                       <img
                         src="images/2.webp"
-                        alt="Image placeholder"
+                        alt="Ảnh sản phẩm"
                         class="img-fluid"
                       />
                     </figure>
                     <div class="block-4-text p-4">
-                      <h3><a href="#">Corater</a></h3>
-                      <p class="mb-0">Finding perfect products</p>
-                      <p class="text-primary font-weight-bold">$50</p>
+                      <h3><a href="#">Giày Thể Thao</a></h3>
+                      <p class="mb-0">Hoàn hảo cho trang phục hàng ngày</p>
+                      <p class="text-primary font-weight-bold">1.650.000 VNĐ</p>
                     </div>
                   </div>
                 </div>
@@ -226,14 +234,14 @@
                     <figure class="block-4-image">
                       <img
                         src="images/3.webp"
-                        alt="Image placeholder"
+                        alt="Ảnh sản phẩm"
                         class="img-fluid"
                       />
                     </figure>
                     <div class="block-4-text p-4">
-                      <h3><a href="#">Polo Shirt</a></h3>
-                      <p class="mb-0">Finding perfect products</p>
-                      <p class="text-primary font-weight-bold">$50</p>
+                      <h3><a href="#">Giày Chạy Bộ</a></h3>
+                      <p class="mb-0">Nhẹ nhàng và bền bỉ</p>
+                      <p class="text-primary font-weight-bold">1.400.000 VNĐ</p>
                     </div>
                   </div>
                 </div>
@@ -242,14 +250,14 @@
                     <figure class="block-4-image">
                       <img
                         src="images/4.webp"
-                        alt="Image placeholder"
+                        alt="Ảnh sản phẩm"
                         class="img-fluid"
                       />
                     </figure>
                     <div class="block-4-text p-4">
-                      <h3><a href="#">T-Shirt Mockup</a></h3>
-                      <p class="mb-0">Finding perfect products</p>
-                      <p class="text-primary font-weight-bold">$50</p>
+                      <h3><a href="#">Giày Bốt Vintage</a></h3>
+                      <p class="mb-0">Phong cách cổ điển, da cao cấp</p>
+                      <p class="text-primary font-weight-bold">2.800.000 VNĐ</p>
                     </div>
                   </div>
                 </div>
@@ -258,14 +266,14 @@
                     <figure class="block-4-image">
                       <img
                         src="images/5.webp"
-                        alt="Image placeholder"
+                        alt="Ảnh sản phẩm"
                         class="img-fluid"
                       />
                     </figure>
                     <div class="block-4-text p-4">
-                      <h3><a href="#">Corater</a></h3>
-                      <p class="mb-0">Finding perfect products</p>
-                      <p class="text-primary font-weight-bold">$50</p>
+                      <h3><a href="#">Giày Lười Thoải Mái</a></h3>
+                      <p class="mb-0">Phù hợp cho sử dụng hàng ngày</p>
+                      <p class="text-primary font-weight-bold">1.500.000 VNĐ</p>
                     </div>
                   </div>
                 </div>
@@ -281,34 +289,34 @@
             <div class="col-lg-6 mb-5 mb-lg-0">
               <div class="row">
                 <div class="col-md-12">
-                  <h3 class="footer-heading mb-4">Navigations</h3>
+                  <h3 class="footer-heading mb-4">Điều hướng</h3>
                 </div>
                 <div class="col-md-6 col-lg-4">
                   <ul class="list-unstyled">
-                    <li><a href="#">Sell online</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Shopping cart</a></li>
-                    <li><a href="#">Store builder</a></li>
+                    <li><a href="#">Bán trực tuyến</a></li>
+                    <li><a href="#">Đặc trưng</a></li>
+                    <li><a href="#">Giỏ hàng</a></li>
+                    <li><a href="#">Người xây dựng </a></li>
                   </ul>
                 </div>
                 <div class="col-md-6 col-lg-4">
                   <ul class="list-unstyled">
-                    <li><a href="#">Mobile commerce</a></li>
-                    <li><a href="#">Dropshipping</a></li>
-                    <li><a href="#">Website development</a></li>
+                    <li><a href="#">Thương mại di động</a></li>
+                    <li><a href="#">Thả vận chuyển</a></li>
+                    <li><a href="#">Phát triển trang web</a></li>
                   </ul>
                 </div>
                 <div class="col-md-6 col-lg-4">
                   <ul class="list-unstyled">
-                    <li><a href="#">Point of sale</a></li>
-                    <li><a href="#">Hardware</a></li>
-                    <li><a href="#">Software</a></li>
+                    <li><a href="#">Điểm bán hàng</a></li>
+                    <li><a href="#">Phần cứng</a></li>
+                    <li><a href="#">Phần mềm</a></li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-              <h3 class="footer-heading mb-4">Promo</h3>
+              <h3 class="footer-heading mb-4">Khuyến mãi</h3>
               <a href="#" class="block-6">
                 <img
                   src="images/hero_1.jpg"
@@ -316,14 +324,14 @@
                   class="img-fluid rounded mb-4"
                 />
                 <h3 class="font-weight-light mb-0">
-                  Finding Your Perfect Shoes
+                  Tìm đôi giày hoàn hảo của bạn
                 </h3>
-                <p>Promo from November 15 &mdash; 25, 2024</p>
+                <p>Khuyễn mãi từ 15 &mdash; 25, 2024</p>
               </a>
             </div>
             <div class="col-md-6 col-lg-3">
               <div class="block-5 mb-5">
-                <h3 class="footer-heading mb-4">Contact Info</h3>
+                <h3 class="footer-heading mb-4">Thông tin liên hệ</h3>
                 <ul class="list-unstyled">
                   <li class="address">
                     48 Cao Thắng, Thanh Bình, Hải Châu, Đà Nẵng 550000
@@ -338,7 +346,7 @@
               <div class="block-7">
                 <form action="#" method="post">
                   <label for="email_subscribe" class="footer-heading"
-                    >Subscribe</label
+                    >Đặt mua</label
                   >
                   <div class="form-group">
                     <input
@@ -350,38 +358,14 @@
                     <input
                       type="submit"
                       class="btn btn-sm btn-primary"
-                      value="Send"
+                      value="Gửi"
                     />
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          <div class="row pt-5 mt-5 text-center">
-            <div class="col-md-12">
-              <p>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script
-                  data-cfasync="false"
-                  src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
-                ></script>
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
-                All rights reserved | This template is made with
-                <i class="icon-heart" aria-hidden="true"></i> by
-                <a
-                  href="https://colorlib.com"
-                  target="_blank"
-                  class="text-primary"
-                  >Colorlib</a
-                >
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              </p>
-            </div>
-          </div>
-        </div>
+          <!--  -->
       </footer>
     </div>
 

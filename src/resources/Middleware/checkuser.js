@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const checkUser = {
     hightcheck: (req, res,next) => {
         const token = req.cookies.token;
-        console.log(token)
+
         if (!token) {
           return res.redirect('/login')
         }else{
@@ -36,7 +36,6 @@ const checkUser = {
               req.login = null
               next(); 
             }else{
-              console.log(decoded)
                 req.login = decoded
                 next(); 
             }

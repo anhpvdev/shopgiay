@@ -10,8 +10,8 @@ const userRoutes = (app) => {
   // router.get('/products',checkauth.auth,UserModel.products)
   router.get('/products/:id',checkauth.lowcheck,UserModel.products_detail)
   router.get('/cart',checkauth.hightcheck,UserModel.cart)
-  router.post('/products/add',UserModel.addcart)
-  router.post('/cart/delete',UserModel.deletecart)
+  router.post('/products/add',checkauth.hightcheck,UserModel.addcart)
+  router.post('/products/delete',checkauth.hightcheck,UserModel.deletecart)
 
 
   router.get('/registry', (req, res) => {

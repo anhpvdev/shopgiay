@@ -1,21 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>đăng nhập</h1>
-    <% if (message) { %>
-        <h1><%= message %></h1>
-      <% } else { %>
-        <p></p>
-      <% } %>
-    <form action="/login" method="post">
-        <input type="text" name="name">
-        <input type="text" name="pass">
-        <button type="submit">đăng nhập</button>
-    </form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập</title>
+    <head>
+      <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"
+      />
+      <link rel="stylesheet" href="../../../public/fonts/icomoon/style.css" />
+
+      <link rel="stylesheet" href="../../../public/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../../public/css/magnific-popup.css" />
+      <link rel="stylesheet" href="../../../public/css/jquery-ui.css" />
+      <link rel="stylesheet" href="../../../public/css/owl.carousel.min.css" />
+      <link rel="stylesheet" href="../../../public/css/owl.theme.default.min.css" />
+
+      <link rel="stylesheet" href="../../../public/css/aos.css" />
+
+      <link rel="stylesheet" href="../../../public/css/style.css" />
+      <link rel="stylesheet" href="../../../public/css/login.css" />
+    </head>
+  </head>
+  <body>
+    <header class="site-navbar" role="banner">
+      <div class="site-navbar-top">
+        <div class="container">
+          <div class="row align-items-center">
+            <div
+              class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left"
+            >
+              <form action="" class="site-block-top-search">
+                <span class="icon icon-search2"></span>
+                <input
+                  type="text"
+                  class="form-control border-0"
+                  placeholder="Tìm kiếm"
+                />
+              </form>
+            </div>
+
+            <div
+              class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center"
+            >
+              <div class="site-logo">
+                <a href="index.html" class="js-logo-clone">Bán giày</a>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+              <div class="site-top-icons">
+                <ul>
+                  <p><a href="/login">Đăng Nhập</a></p>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="site-navigation text-right text-md-center" role="navigation">
+        <div class="container">
+          <ul class="site-menu js-clone-nav d-none d-md-block">
+            <li class="">
+              <a href="/">TRANG CHỦ</a>
+            </li>
+
+            <li class="">
+              <a>Giới thiệu</a>
+            </li>
+            <li><a href="shop.html">Cửa hàng</a></li>
+
+            <li><a href="#"> Hàng mới đến</a></li>
+            <li><a>Liên hệ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="login-container">
+      <h2 class="login-title">Đăng Nhập</h2>
+      <form class="login-form" action="/login" method="post">
+        <div class="login-field">
+          <label for="username">Tên Đăng Nhập:</label>
+          <input type="text" id="username" name="name" required />
+        </div>
+        <div class="login-field">
+          <label for="password">Mật Khẩu:</label>
+          <input type="password" id="password" name="pass" required />
+        </div>
+        <button type="submit" class="login-submit">Đăng Nhập</button>
+      </form>
+      <p class="login-switch">
+        Chưa có tài khoản? <a href="./registry">Đăng Ký</a>
+      </p>
+    </div>
+  </body>
 </html>
+
+
