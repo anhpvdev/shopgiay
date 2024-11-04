@@ -120,7 +120,7 @@
             <div class="col-md-6">
               <img src="../../../public/images/Products/<%= data.hinh_anh[0] %>" alt="Image" class="img-fluid" />
             </div>
-            <form class="col-md-6" action="/products/add" method="post">
+            <form class="col-md-6" onsubmit="return checkSizeSelection()" action="/products/add" method="post">
               <h2 class="text-black"><%= data.ten %></h2>
               <p>
                 <%= data.mo_ta %>
@@ -180,10 +180,11 @@
                 <!-- <a href="cart.html" class="buy-now btn btn-sm btn-primary"
                   >Thêm vào giỏ hàng</a
                 > -->
-                <button type="submit" class="buy-now btn btn-sm btn-primary">Thêm vào giỏ hàng</button>
+                <button type="submit" class="buy-now btn btn-sm btn-primary">Mua Ngay</button>
               </p>
             </form>
           </div>
+          <script src="../../../public/Scripts/sizeSelection.js"></script>
         </div>
       </div>
 

@@ -175,6 +175,7 @@ const UserServices = {
             dia_chi: '', 
             so_dien_thoai: '',
             gio_hang: [] 
+
           });
       
           await newUser.save();
