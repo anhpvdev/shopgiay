@@ -2,7 +2,7 @@ const path = require('path')
 const mongoose = require('../../config/connect_db')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const { change_password } = require('./buyer')
+
 
 
 const Productschema = new mongoose.Schema({
