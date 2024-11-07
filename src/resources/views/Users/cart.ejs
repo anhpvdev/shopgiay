@@ -56,7 +56,14 @@
                   <ul>
                     <% if (user) { %>
                       <li>
-                        <a href="#"><span class="icon icon-person"></span></a>
+                        <div class="dropdown-container">
+                          <a href="#" id="logout-icon">
+                              <span class="icon icon-person"></span>
+                          </a>
+                          <div class="dropdown-menu" id="dropdown-menu">
+                              <a href="#">Đăng xuất</a>
+                          </div>
+                        </div>
                       </li>
                       <li>
                         <a href="#"><span class="icon icon-heart-o"></span></a>
@@ -146,36 +153,30 @@
                         <td class="product-name">
                           <h2 class="h5 text-black"><%= data[i].ten %></h2>
                         </td>
-                        <td><%= data[i].gia %></td>
+                        <td data-price="<%= data[i].gia %>" class="product-price"><%= data[i].gia %> VNĐ</td>
                         <td>
                           <div class="input-group mb-3" style="max-width: 120px">
-                            <div class="input-group-prepend">
-                              <button
-                                class="btn btn-outline-primary js-btn-minus"
-                                type="button"
-                              >
-                                &minus;
-                              </button>
-                            </div>
-                            <input
-                              type="text"
-                              class="form-control text-center"
-                              value="<%= data[i].so_luong %>"
-                              placeholder=""
-                              aria-label="Example text with button addon"
-                              aria-describedby="button-addon1"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-primary js-btn-plus"
-                                type="button"
-                              >
-                                &plus;
-                              </button>
-                            </div>
+                            <!-- <div class="input-group-prepend">
+                              <button class="btn btn-outline-primary js-btn-minus" type="button" onclick="updateQuantity(this, -1)">&minus;</button>
+                            </div> -->
+                            <form action="/products/update" method="post" class="input-group-prepend">
+                              <input type="text" name="size" value="<%= data[i].kich_thuoc %>" hidden="hidden">
+                              <input type="text" name="product" value="<%= data[i].san_pham_id %>" hidden="hidden">
+                              <input type="text" name="num" value="-1" hidden="hidden">
+                              <button class="btn btn-outline-primary" type="submit">-</button>
+                            </form>
+
+                            <input type="number" class="form-control text-center quantity-input" value="<%= data[i].so_luong %>" min="1" />
+                            <form action="/products/update" method="post" class="input-group-append">
+                                <input type="text" name="size" value="<%= data[i].kich_thuoc %>" hidden="hidden">
+                                <input type="text" name="product" value="<%= data[i].san_pham_id %>" hidden="hidden">
+                                <input type="text" name="num" value="1" hidden="hidden">
+                                <button class="btn btn-outline-primary" type="submit">+</button>
+                            </form>
+                              
                           </div>
                         </td>
-                        <td><%= data[i].gia * data[i].so_luong%></td>
+                        <td class="product-total" data-price="<%= data[i].gia * data[i].so_luong%>"><%= data[i].gia * data[i].so_luong%> VND</td>
                         <td><h2 class="h5 text-black"><%= data[i].kich_thuoc %></h2></td>
                          
                         <td>
@@ -237,18 +238,26 @@
                   </div>
                   <div class="row mb-3">
                     <div class="col-md-6">
-                      <span class="text-black">Tổng phụ</span>
+                      <span class="text-black">Tổng tiền</span>
                     </div>
                     <div class="col-md-6 text-right">
-                      <strong class="text-black">3.000.000 VNĐ</strong>
+                      <strong class="text-black" data-subtotal></strong>
                     </div>
                   </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                        <span class="text-black">Phí vận chuyển</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <strong class="text-black" data-shipping>100.000 VNĐ</strong>
+                    </div>
+                </div>
                   <div class="row mb-5">
                     <div class="col-md-6">
                       <span class="text-black">Tổng cộng</span>
                     </div>
                     <div class="col-md-6 text-right">
-                      <strong class="text-black">3.000.000 VNĐ</strong>
+                      <strong class="text-black" data-total></strong>
                     </div>
                   </div>
 
@@ -355,6 +364,7 @@
       </footer>
     </div>
 
+    <script src="./public/Scripts/sizeSelection.js"></script>
     <script src="./public/Scripts/jquery-3.3.1.min.js"></script>
     <script src="./public/Scripts/jquery-ui.js"></script>
     <script src="./public/Scripts/popper.min.js"></script>

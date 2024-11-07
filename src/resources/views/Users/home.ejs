@@ -56,8 +56,16 @@
                   <ul>
                     <% if (user) { %>
                     <li>
-                      <a href="#"><span class="icon icon-person"></span></a>
+                      <div class="dropdown-container">
+                        <a href="#" id="logout-icon">
+                            <span class="icon icon-person"></span>
+                        </a>
+                        <div class="dropdown-menu" id="dropdown-menu">
+                            <a href="/logout">Đăng xuất</a>
+                        </div>
+                      </div>
                     </li>
+                    
                     <li>
                       <a href="#"><span class="icon icon-heart-o"></span></a>
                     </li>
@@ -469,7 +477,7 @@
           <!--  -->
       </footer>
     </div>
-
+    <script src="./public/Scripts/sizeSelection.js"></script>
     <script src="./public/Scripts/jquery-3.3.1.min.js"></script>
     <script src="./public/Scripts/jquery-ui.js"></script>
     <script src="./public/Scripts/popper.min.js"></script>

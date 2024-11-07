@@ -1084,3 +1084,38 @@ a:hover {
   width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng ô */
   height: auto; /* Tự động điều chỉnh chiều cao */
 }
+
+/*
+ /* CSS cho nút và menu */
+/* css da them 4/11/2024
+/* CSS cho nút và menu thả xuống */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none; /* Ẩn menu mặc định */
+  position: absolute;
+  top: 100%; /* Hiển thị ngay bên dưới biểu tượng */
+  left: 0; /* Đặt lại về 0 để căn trái */
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Giảm độ mờ bóng */
+  padding: 4px 8px; /* Giảm padding để thu nhỏ khối */
+  border-radius: 10px; /* Giảm bo góc */
+  font-size: 13px; /* Kích thước chữ */
+  z-index: 1;
+  text-align: center;
+  width: auto; /* Đặt lại chiều rộng theo nội dung */
+  min-width: 100px; /* Có thể thêm chiều rộng tối thiểu nếu cần */
+}
+
+.dropdown-menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.dropdown-menu a:hover {
+  color: #007bff; /* Màu khi hover */
+}

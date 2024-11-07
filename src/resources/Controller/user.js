@@ -12,6 +12,7 @@ const userRoutes = (app) => {
   router.get('/cart',checkauth.hightcheck,UserModel.cart)
   router.post('/products/add',checkauth.hightcheck,UserModel.addcart)
   router.post('/products/delete',checkauth.hightcheck,UserModel.deletecart)
+  router.post('/products/update',checkauth.hightcheck,UserModel.updatecart)
 
 
   router.get('/registry', (req, res) => {

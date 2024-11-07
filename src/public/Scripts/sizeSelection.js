@@ -1,21 +1,18 @@
 // sizeSelection.js
 
 // Function to check if a size is selected
-function checkSizeSelection() {
+function checkSizeSelection(event) {
   // Check if any radio button is selected
   const sizeSelected = document.querySelector(
-    'input[name="size"]:checked'
+    'input[name="shop-sizes"]:checked'
   );
 
   if (!sizeSelected) {
     // If no size is selected, display an alert and prevent default action
     alert("Vui lòng chọn size");
-    return false; // Prevent page navigation
-  }else{
-    return true;
+    event.preventDefault(); // Prevent page navigation
   }
 }
-
 
 // Variable to track the last checked size
 let lastCheckedSize = null;
@@ -66,4 +63,104 @@ function validateEmail() {
     return false; // Ngăn chặn form submit nếu email không hợp lệ
   }
   return true; // Cho phép submit nếu email hợp lệ
+}
+
+const logoutIcon = document.getElementById("logout-icon");
+const logoutMenu = document.getElementById("logout-menu");
+
+logoutIcon.addEventListener("click", function (event) {
+  event.preventDefault();
+  logoutMenu.style.display =
+    logoutMenu.style.display === "block" ? "none" : "block";
+});
+
+// JavaScript để hiển thị/ẩn menu khi click
+
+// js đã thêm 4/11/2024
+// logout
+document.addEventListener("DOMContentLoaded", function () {
+  const logoutIcon = document.getElementById("logout-icon");
+  const dropdownMenu = document.getElementById("dropdown-menu");
+
+  if (logoutIcon && dropdownMenu) {
+    // Toggle hiển thị menu khi nhấp vào biểu tượng
+    logoutIcon.addEventListener("click", function (event) {
+      event.preventDefault();
+      dropdownMenu.style.display =
+        dropdownMenu.style.display === "block" ? "none" : "block";
+    });
+
+    // Ẩn menu khi click ra ngoài
+    document.addEventListener("click", function (event) {
+      if (
+        !logoutIcon.contains(event.target) &&
+        !dropdownMenu.contains(event.target)
+      ) {
+        dropdownMenu.style.display = "none";
+      }
+    });
+  }
+});
+
+// update price money
+// function updateQuantity(button, change) {
+//   const quantityInput = button
+//     .closest(".input-group")
+//     .querySelector(".quantity-input");
+//   let quantity = parseInt(quantityInput.value);
+
+//   // Tính toán giá tổng cho sản phẩm
+//   const productRow = button.closest("tr");
+//   const pricePerUnit = parseInt(
+//     productRow.querySelector(".product-price").getAttribute("data-price")
+//   );
+//   const totalPriceElement = productRow.querySelector(".product-total");
+
+//   // Cập nhật giá tổng sản phẩm
+//   const total = pricePerUnit * quantity;
+//   totalPriceElement.setAttribute("data-price", total);
+//   totalPriceElement.innerHTML = formatCurrency(total) + " VNĐ";
+
+//   // Cập nhật tổng phụ
+//   updateCartTotals();
+// }
+
+function updateCartTotals() {
+  const productTotals = document.querySelectorAll(".product-total");
+  const shippingFee = 100000; // Phí vận chuyển
+  let subtotal = 0;
+
+  productTotals.forEach((total) => {
+    // Lấy giá trị từ thuộc tính data-price
+    const price = parseInt(total.getAttribute("data-price"));
+    if (!isNaN(price)) {
+      subtotal += price; // Chỉ cộng vào subtotal nếu giá hợp lệ
+    }
+  });
+
+  // Cập nhật giá trị tổng phụ
+  const subtotalElement = document.querySelector("[data-subtotal]");
+  subtotalElement.innerHTML = formatCurrency(subtotal) + " VNĐ";
+
+  // Cập nhật phí vận chuyển
+  const shippingElement = document.querySelector("[data-shipping]");
+  shippingElement.innerHTML = formatCurrency(shippingFee) + " VNĐ";
+
+  // Cập nhật tổng cộng
+  const totalElement = document.querySelector("[data-total]");
+  const grandTotal = subtotal + shippingFee;
+  totalElement.innerHTML = formatCurrency(grandTotal) + " VNĐ";
+}
+
+function formatCurrency(amount) {
+  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); // Định dạng giá tiền
+}
+
+// Gọi hàm này khi trang được tải để cập nhật tổng số giỏ hàng
+updateCartTotals();
+
+
+
+function updatenum(){
+
 }

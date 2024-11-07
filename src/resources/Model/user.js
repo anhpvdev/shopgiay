@@ -156,6 +156,35 @@ const UserServices = {
 
     },
 
+    updatecart: async (req, res) => {
+      var userid = req.login.id
+
+      var {product,size,num} = req.body
+      console.log(product,size,num,userid)
+   
+        const  listcart = mongoose.model('nguoidungs', Userschema)
+        listcart.findOneAndUpdate(
+            { _id: userid,
+            "gio_hang.san_pham_id": product,
+            "gio_hang.kich_thuoc": size
+             },
+            {
+                $inc: { "gio_hang.$.so_luong": num }
+            },
+            { new: true }
+        ).then((dataa)=>{
+            console.log(dataa)
+            if(dataa == null){
+              return res.redirect('/404')
+            }else{
+              return res.redirect('/cart')
+            }
+            
+        })
+       
+
+    },
+
 
     registry: async (req, res) => {
       var {name,pass} = req.body
