@@ -147,11 +147,11 @@
                         class="dropdown-menu"
                         aria-labelledby="dropdownMenuOffset"
                       >
-                        <a class="dropdown-item" href="#">Adidas</a>
-                        <a class="dropdown-item" href="#">Nike</a>
-                        <a class="dropdown-item" href="#">Puma</a>
-                        <a class="dropdown-item" href="#">Gucci</a>
-                        <a class="dropdown-item" href="#">New Balance</a>
+                        <a class="dropdown-item" href="/sort?sort=Adidas">Adidas</a>
+                        <a class="dropdown-item" href="/sort?sort=Nike">Nike</a>
+                        <a class="dropdown-item" href="/sort?sort=Puma">Puma</a>
+                        <a class="dropdown-item" href="/sort?sort=Gucci">Gucci</a>
+                        <a class="dropdown-item" href="/sort?sort=New Balance">New Balance</a>
                       </div>
                     </div>
                     <div class="btn-group">
@@ -168,11 +168,20 @@
                         aria-labelledby="dropdownMenuReference"
                       >
                         <a class="dropdown-item" href="#"></a>
-                        <a class="dropdown-item" href="#">Name, A to Z</a>
-                        <a class="dropdown-item" href="#">Name, Z to A</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Giá từ thấp đến cao</a>
-                        <a class="dropdown-item" href="#">Giá từ cao đến thấp</a>
+                        <% if (sort) { %>
+                          <a class="dropdown-item" href="/sort?sort=<%= sort %>&type=1">Name, A to Z</a>
+                          <a class="dropdown-item" href="/sort?sort=<%= sort %>&type=2">Name, Z to A</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/sort?sort=<%= sort %>&type=3">Giá từ thấp đến cao</a>
+                          <a class="dropdown-item" href="/sort?sort=<%= sort %>&type=4">Giá từ cao đến thấp</a>
+                          <% } else { %>
+                            <a class="dropdown-item" href="/sort?type=1">Name, A to Z</a>
+                            <a class="dropdown-item" href="/sort?type=2">Name, Z to A</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/sort?type=3">Giá từ thấp đến cao</a>
+                            <a class="dropdown-item" href="/sort?type=4">Giá từ cao đến thấp</a>
+                          <% } %>
+                        
                       </div>
                     </div>
                   </div>

@@ -7,6 +7,7 @@ const UserModel = require("../Model/user")
 
 const userRoutes = (app) => {
   router.get('/',checkauth.lowcheck,UserModel.home)
+  router.get('/sort',checkauth.lowcheck,UserModel.sort)
   // router.get('/products',checkauth.auth,UserModel.products)
   router.get('/products/:id',checkauth.lowcheck,UserModel.products_detail)
   router.get('/cart',checkauth.hightcheck,UserModel.cart)

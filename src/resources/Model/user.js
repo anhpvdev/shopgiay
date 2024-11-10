@@ -55,12 +55,112 @@ const UserServices = {
             listproduct.find({}).then((dataa)=>{
             
                if(req.login){
-                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id})
+                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id,sort:null})
                }else{
-                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null})
+                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null,sort:null})
                }
                
             })
+    },
+
+    sort: async (req, res) => {
+      console.log(req.login)
+      let sort = req.query.sort
+      let type = req.query.type
+      var valuesort = null
+      console.log(sort,type)
+      if(type == 3){
+        valuesort = {gia: 1}
+      }
+      if(type == 4){
+         valuesort = {gia: -1}
+      }
+      if(type == 1){
+        valuesort = {ten: 1}
+      }
+      if(type == 2){
+         valuesort = {ten: -1}
+      }
+
+
+      if(sort == 'Adidas'){
+        const  listproduct = mongoose.model('sanphams', Productschema)
+            listproduct.find({ thuong_hieu: "Adidas" }).sort(valuesort).then((dataa)=>{
+            
+               if(req.login){
+                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id,sort:"Adidas"})
+               }else{
+                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null,sort:"Adidas"})
+               }
+               
+            })
+      }
+
+      if(sort == 'Nike'){
+        const  listproduct = mongoose.model('sanphams', Productschema)
+            listproduct.find({ thuong_hieu: "Nike" }).sort(valuesort).then((dataa)=>{
+            
+               if(req.login){
+                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id,sort:"Nike"})
+               }else{
+                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null,sort:"Nike"})
+               }
+               
+            })
+      }
+
+      if(sort == 'Puma'){
+        const  listproduct = mongoose.model('sanphams', Productschema)
+            listproduct.find({ thuong_hieu: "Puma" }).sort(valuesort).then((dataa)=>{
+            
+               if(req.login){
+                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id,sort:"Puma"})
+               }else{
+                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null,sort:"Puma"})
+               }
+               
+            })
+      }
+
+      if(sort == 'Gucci'){
+        const  listproduct = mongoose.model('sanphams', Productschema)
+            listproduct.find({ thuong_hieu: "Gucci" }).sort(valuesort).then((dataa)=>{
+            
+               if(req.login){
+                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id,sort:"Gucci"})
+               }else{
+                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null,sort:"Gucci"})
+               }
+               
+            })
+      }
+
+      if(sort == 'New Balance'){
+        const  listproduct = mongoose.model('sanphams', Productschema)
+            listproduct.find({ thuong_hieu: "New Balance" }).sort(valuesort).then((dataa)=>{
+            
+               if(req.login){
+                return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id,sort:"New Balance"})
+               }else{
+                 return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null,sort:"New Balance"})
+               }
+               
+            })
+      }
+      
+      if(sort == undefined){
+        const  listproduct = mongoose.model('sanphams', Productschema)
+        listproduct.find({}).sort(valuesort).then((dataa)=>{
+        
+           if(req.login){
+            return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:req.login.id,sort:null})
+           }else{
+             return res.render(path.join(__dirname+"../../views/Users/home.ejs"),{data:dataa,user:null,sort:null})
+           }
+           
+        })
+      }
+        
     },
 
     products_detail: async (req, res) => {
