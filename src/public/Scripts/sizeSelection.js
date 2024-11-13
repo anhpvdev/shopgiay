@@ -4,18 +4,15 @@
 function checkSizeSelection(event) {
   // Check if any radio button is selected
   const sizeSelected = document.querySelector(
-    'input[name="size"]:checked'
+    'input[name="shop-sizes"]:checked'
   );
 
   if (!sizeSelected) {
     // If no size is selected, display an alert and prevent default action
     alert("Vui lòng chọn size");
-    return false;
-
+    event.preventDefault(); // Prevent page navigation
   }
-  return true;
 }
-
 // Variable to track the last checked size
 let lastCheckedSize = null;
 
