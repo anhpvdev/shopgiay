@@ -12,5 +12,8 @@ config(app)
 const UserRoutes = require("./resources/Controller/user")
 UserRoutes(app)
 
+const AdminRoutes = require("./resources/Controller/admin")
+AdminRoutes(app)
+
 
 app.listen(PORT, () => console.log(`server is running on port http://localhost:${PORT}`))
