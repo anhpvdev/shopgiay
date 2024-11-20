@@ -10,6 +10,26 @@ const Adminschema = new mongoose.Schema({
 })
 
 
+const ListProductschema = new mongoose.Schema({
+  ten: { type: String, required: true },
+  thuong_hieu: { type: String, required: true },
+  loai: { type: String, required: true },
+  kich_thuoc: [{ type: Number, required: true }],
+  mau_sac: [{ type: String, required: true }],
+  gia: { type: Number, required: true },
+  so_luong_ton: { type: Number, required: true },
+  mo_ta: { type: String },
+  hinh_anh: [{ type: String }],
+  danh_gia: { type: Number, default: 0 },
+  nhan_xet: [
+    {
+      nguoi_dung: { type: String },
+      noi_dung: { type: String },
+      so_sao: { type: Number, min: 1, max: 5 }
+    }
+  ]
+})
+
 const UserServices = {
 
     error: async (req, res) => {
@@ -18,12 +38,37 @@ const UserServices = {
 
     home: async (req, res) => {
       console.log(req.login)
+
+      const  listproduct = mongoose.model('sanphams', ListProductschema)
+            listproduct.find({}).then((dataa)=>{
+            
+              if(req.login){
+                return res.render(path.join(__dirname+"../../views/Admin/home.ejs"),{data:dataa,user:req.login.id,sort:null})
+               }else{
+                 return res.render(path.join(__dirname+"../../views/Admin/home.ejs"),{data:dataa,user:null,sort:null})
+               }
+               
+            })
         
-      if(req.login){
-        return res.render(path.join(__dirname+"../../views/Admin/home.ejs"),{data:[],user:req.login.id,sort:null})
-       }else{
-         return res.render(path.join(__dirname+"../../views/Admin/home.ejs"),{data:[],user:null,sort:null})
-       }
+      
+    },
+
+    
+    edit: async (req, res) => {
+      let id = req.query.id
+      console.log(id)
+
+      // const  listproduct = mongoose.model('sanphams', Productschema)
+      //     listproduct.findById(idpr).then((dataa)=>{
+      //         console.log(dataa)
+      //         if(req.login){
+      //           return res.render(path.join(__dirname+"../../views/Users/detail.ejs"),{data:dataa,user:req.login.id})
+      //         }else{
+      //           return res.render(path.join(__dirname+"../../views/Users/detail.ejs"),{data:dataa,user:null})
+      //         }
+      //     })
+        
+      
     },
 
   
@@ -34,7 +79,7 @@ const UserServices = {
     res.cookie('token', '');
 
         return res.redirect("/")
-},
+  },
 
   login: async (req, res) => {
     var {name,pass} = req.body

@@ -3,9 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Quản Lý Sản Phẩm</title>
+  <link rel="stylesheet" href="../../../public/admin/stylesadmin.css">
 </head>
 <body>
-  admin home
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="profile">
+        <img src="https://via.placeholder.com/100" alt="Avatar" class="avatar">
+        <h2 class="admin-name">Quản Lý</h2>
+        <p class="admin-role">Admin</p>
+      </div>
+      <ul class="menu">
+        <li><a href="#">Danh Sách Sản Phẩm</a></li>
+        <li><a href="#">Thống Kê</a></li>
+        <li><a href="#">Cài Đặt</a></li>
+        <li><a href="#">Đăng Xuất</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <h1 class="title">Quản Lý Sản Phẩm</h1>
+
+      <!-- Form Section -->
+      <div class="form">
+        <input type="text" id="shoe-name" placeholder="Tên sản phẩm" class="input">
+        <select id="shoe-brand" class="input">
+          <option value="">-- Chọn Thương Hiệu --</option>
+          <option value="Adidas">Adidas</option>
+          <option value="Nike">Nike</option>
+          <option value="MLP">MLP</option>
+          <option value="Puma">Puma</option>
+          <option value="Gucci">Gucci</option>
+          <option value="New Balance">New Balance</option>
+        </select>
+        <label for="product-size">Size</label>
+        <div id="product-size-group" class="button-group" style="display: flex; gap: 10px;">
+          <button type="button" class="size-select-btn" data-value="39">39</button>
+          <button type="button" class="size-select-btn" data-value="40">40</button>
+          <button type="button" class="size-select-btn" data-value="41">41</button>
+          <button type="button" class="size-select-btn" data-value="42">42</button>
+          <button type="button" class="size-select-btn" data-value="43">43</button>
+        </div>
+        <input type="hidden" id="selected-size" name="selected-size">
+        <select id="shoe-price" class="input">
+          <option value="">-- Chọn Giá --</option>
+          <option value="1000000">1.000.000 VNĐ</option>
+          <option value="2000000">2.000.000 VNĐ</option>
+          <option value="3000000">3.000.000 VNĐ</option>
+          <option value="4000000">4.000.000 VNĐ</option>
+          <option value="5000000">5.000.000 VNĐ</option>
+        </select>
+        <button id="add-btn" class="btn btn-add">Thêm</button>
+        <button id="update-btn" class="btn btn-update hidden">Cập Nhật</button>
+      </div>
+
+      <!-- Table Section -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Thương hiệu</th>
+            <th>Sizes</th>
+            <th>Giá tiền</th>
+            <th>Số lượng</th>
+            <th>Hành Động</th>
+          </tr>
+        </thead>
+        <tbody id="shoe-list">
+          <% for(var i = 0; i < data.length; i++) { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><img src="../../../public/images/Products/<%= data[i].hinh_anh[0] %>" alt="Adidas Superstar" class="product-image"></td>
+              <td><%= data[i].ten %></td>
+              <td><%= data[i].thuong_hieu %></td>
+              <td>42</td>
+              <td><%= data[i].gia %> VNĐ</td>
+              <td>10</td>
+              <td>
+                <button  class="btn btn-update"><a href="/admin/edit?id=<%= data[i].id %>">Sửa</a></button>
+                <button  class="btn btn-delete" style="background-color: #e74c3c;">Xóa</button>
+              </td>
+  
+            </tr>
+          <% } %> 
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    function editProduct(index) {
+      alert('Chức năng sửa sản phẩm demo!');
+    }
+
+    function deleteProduct(index) {
+      alert('Chức năng xóa sản phẩm demo!');
+    }
+       // Xử lý sự kiện click cho các nút chọn size
+       document.querySelectorAll('.size-select-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    const hiddenInput = document.getElementById('selected-size'); // Input hidden lưu giá trị
+
+    // Kiểm tra nếu nút đã được chọn
+    if (this.classList.contains('selected')) {
+      // Bỏ chọn nút và xóa giá trị khỏi mảng
+      this.classList.remove('selected');
+      const currentSizes = hiddenInput.value ? hiddenInput.value.split(',') : [];
+      const newSizes = currentSizes.filter(size => size !== this.getAttribute('data-value'));
+      hiddenInput.value = newSizes.join(','); // Cập nhật lại danh sách size
+    } else {
+      // Chọn nút và thêm giá trị vào mảng
+      this.classList.add('selected');
+      const currentSizes = hiddenInput.value ? hiddenInput.value.split(',') : [];
+      currentSizes.push(this.getAttribute('data-value'));
+      hiddenInput.value = currentSizes.join(','); // Cập nhật lại danh sách size
+    }
+  });
+});
+
+  </script>
 </body>
 </html>
