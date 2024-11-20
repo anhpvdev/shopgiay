@@ -11,8 +11,11 @@ const userRoutes = (app) => {
     res.render('../../views/Admin/login.ejs',{message:null});
   })
 
-  router.get('/edit',checkauth.hightcheck,AdminModel.home)
+  router.get('/edit',checkauth.hightcheck,AdminModel.edit)
+
   router.post('/login',AdminModel.login)
+
+  router.get('/add',checkauth.hightcheck,AdminModel.add)
 
   router.get('/404',AdminModel.error)
 
