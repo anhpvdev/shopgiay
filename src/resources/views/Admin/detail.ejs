@@ -11,23 +11,23 @@
     <h1 class="title">Sửa Sản Phẩm</h1>
 
     <!-- Form Section -->
-    <form id="create-form" class="form">
+    <form id="create-form" class="form" method="post" action="/admin/edit">
       <label for="product-id">ID Sản Phẩm</label>
-      <input type="number" id="product-id"  value="<%= data.id %>"  placeholder="Nhập ID" class="input" disabled required>
+      <input type="text" id="product-id" name="id" value="<%= data.id %>"  placeholder="Nhập ID" class="input" readonly>
 
       <label for="product-image">Ảnh Sản Phẩm</label>
-      <input type="file" id="product-image" class="input" accept="image/*" required>
+      <!-- <input type="file" id="product-image" class="input" accept="image/*" required> -->
       <div id="image-preview" class="image-preview">
         <img src="../../../public/images/Products/<%= data.hinh_anh[0] %>" alt="Preview" class="uploaded-image">
       </div>
 
       <label for="product-name">Tên Sản Phẩm</label>
-      <input type="text" id="product-name" value="<%= data.ten %>" placeholder="Nhập tên sản phẩm" class="input" required>
+      <input type="text" id="product-name" name="name" value="<%= data.ten %>" placeholder="Nhập tên sản phẩm" class="input" required>
 
       <label for="product-brand">Thương Hiệu</label>
-      <select id="product-brand" class="input" required>
-        <option value="">-- Chọn Thương Hiệu --</option>
+      <select id="product-brand" name="brand" class="input" required>
         <option value="<%= data.thuong_hieu %>"><%= data.thuong_hieu %></option>
+        <option value="">-- Chọn Thương Hiệu --</option>
         <option value="Adidas">Adidas</option>
         <option value="Nike">Nike</option>
         <option value="MLP">MLP</option>
@@ -36,52 +36,37 @@
         <option value="New Balance">New Balance</option>
       </select>
       <label for="product-size">Size</label>
+      <input style="display: none;" type="text" value="" name="size" id="list_size">
       <div id="product-size-group" class="button-group" style="display: flex; gap: 10px;">
-        <button type="button" class="size-select-btn" data-value="39">39</button>
-        <button type="button" class="size-select-btn" data-value="40">40</button>
-        <button type="button" class="size-select-btn" data-value="41">41</button>
-        <button type="button" class="size-select-btn" data-value="42">42</button>
-        <button type="button" class="size-select-btn" data-value="43">43</button>
+        <button type="button"  class="size-select-btn" >39</button>
+        <button type="button"  class="size-select-btn" >40</button>
+        <button type="button"  class="size-select-btn" >41</button>
+        <button type="button"  class="size-select-btn" >42</button>
+        <button type="button"  class="size-select-btn" >43</button>
       </div>
-      <input type="hidden" id="selected-size" name="selected-size">
-      
+      <input type="hidden" id="selected-size" >
       
 
       <label for="product-price">Giá Tiền</label>
-      <input type="text" id="product-price" value="<%= data.gia %>" placeholder="Nhập giá tiền" class="input" required>
+      <input type="text" id="product-price" name="price" value="<%= data.gia %>" placeholder="Nhập giá tiền" class="input" required>
 
       <label for="product-quantity">Số Lượng</label>
-      <input type="number" id="product-quantity" value="<%= data.so_luong_ton %>" placeholder="Nhập số lượng" class="input" required>
+      <input type="number" id="product-quantity" name="quantity" value="<%= data.so_luong_ton %>" placeholder="Nhập số lượng" class="input" required>
 
       <button type="submit" class="btn btn-add">Thêm Sản Phẩm</button>
     </form>
   </div>
 
+
   <script>
-    // Preview uploaded image
-    const productImageInput = document.getElementById("product-image");
     const imagePreview = document.getElementById("image-preview");
-
-    productImageInput.addEventListener("change", function () {
-      const file = this.files[0];
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" class="uploaded-image">`;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        imagePreview.innerHTML = `<p>Chưa có ảnh nào được chọn</p>`;
-      }
-    });
 
     // Format price input
     const productPriceInput = document.getElementById("product-price");
-    productPriceInput.addEventListener("input", function () {
-      const value = this.value.replace(/\D/g, ""); // Loại bỏ ký tự không phải số
-      this.value = new Intl.NumberFormat("vi-VN").format(value) + " VNĐ";
-    });
+    // productPriceInput.addEventListener("input", function () {
+    //   const value = this.value.replace(/\D/g, ""); // Loại bỏ ký tự không phải số
+    //   this.value = new Intl.NumberFormat("vi-VN").format(value) + " VNĐ";
+    // });
 
     // Prevent negative numbers for ID and Quantity
     const productIdInput = document.getElementById("product-id");
@@ -103,39 +88,24 @@
 
     // Handle Form Submission
     const form = document.getElementById("create-form");
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
+    // form.addEventListener("submit", function (e) {
+    //   e.preventDefault();
 
-      // Get input values
-      const id = document.getElementById("product-id").value;
-      const name = document.getElementById("product-name").value;
-      const brand = document.getElementById("product-brand").value;
-      const size = document.getElementById("product-size").value;
-      const price = productPriceInput.value;
-      const quantity = document.getElementById("product-quantity").value;
-      const image = productImageInput.files[0];
+    //   // Get input values
+    //   const id = document.getElementById("product-id").value;
+    //   const name = document.getElementById("product-name").value;
+    //   const brand = document.getElementById("product-brand").value;
+    //   // const size = document.getElementById("product-size").value;
+    //   const price = productPriceInput.value;
+    //   const quantity = document.getElementById("product-quantity").value;
+    //   var size = []
+ 
+      
+      
+      
 
-      if (image) {
-        alert("Sản phẩm đã được thêm thành công!");
 
-        // Log data for demo purposes
-        console.log({
-          id,
-          name,
-          brand,
-          size,
-          price,
-          quantity,
-          image: image.name,
-        });
-
-        // Reset form
-        form.reset();
-        imagePreview.innerHTML = `<p>Chưa có ảnh nào được chọn</p>`;
-      } else {
-        alert("Vui lòng chọn ảnh sản phẩm!");
-      }
-    });
+    // });
     
 
     // Xử lý sự kiện click cho các nút chọn size
@@ -143,23 +113,66 @@
   button.addEventListener('click', function () {
     const hiddenInput = document.getElementById('selected-size'); // Input hidden lưu giá trị
 
+    
     // Kiểm tra nếu nút đã được chọn
     if (this.classList.contains('selected')) {
       // Bỏ chọn nút và xóa giá trị khỏi mảng
       this.classList.remove('selected');
+      this.checked = false
       const currentSizes = hiddenInput.value ? hiddenInput.value.split(',') : [];
       const newSizes = currentSizes.filter(size => size !== this.getAttribute('data-value'));
       hiddenInput.value = newSizes.join(','); // Cập nhật lại danh sách size
     } else {
       // Chọn nút và thêm giá trị vào mảng
       this.classList.add('selected');
+      this.checked = true
       const currentSizes = hiddenInput.value ? hiddenInput.value.split(',') : [];
       currentSizes.push(this.getAttribute('data-value'));
       hiddenInput.value = currentSizes.join(','); // Cập nhật lại danh sách size
     }
+    let size =[]
+    let listsize = document.querySelectorAll(".size-select-btn")
+      for(let i=0;i<listsize.length;i++){
+        if(listsize[i].checked){
+          size.push(parseInt(listsize[i].innerHTML))
+        }
+      }
+      console.log(size)
+
+      list_size.value=JSON.stringify(size)
   });
 });
 
+var check_size = [<%= data.kich_thuoc %>]
+  console.log(check_size)
+  const list_size = document.getElementById("list_size")
+  console.log(list_size.value)
+  document.querySelectorAll('.size-select-btn').forEach(button => {
+
+    const hiddenInput = document.getElementById('selected-size'); // Input hidden lưu giá trị
+    // console.log(button.innerHTML)
+   if(check_size.includes(parseInt(button.innerHTML))){
+      button.classList.add('selected');
+      button.checked = true
+      const currentSizes = hiddenInput.value ? hiddenInput.value.split(',') : [];
+      currentSizes.push(button.getAttribute('data-value'));
+      hiddenInput.value = currentSizes.join(',');
+   }
+
+    
+
+    let size =[]
+    let listsize = document.querySelectorAll(".size-select-btn")
+      for(let i=0;i<listsize.length;i++){
+        if(listsize[i].checked){
+          size.push(parseInt(listsize[i].innerHTML))
+        }
+      }
+      console.log(size)
+
+      list_size.value=JSON.stringify(size)
+ 
+});
 
   </script>
   

@@ -17,6 +17,8 @@ const userRoutes = (app) => {
 
   router.get('/add',checkauth.hightcheck,AdminModel.add)
 
+  router.post('/edit',checkauth.hightcheck,AdminModel.pedit)
+
   router.get('/404',AdminModel.error)
 
   

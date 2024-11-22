@@ -39,7 +39,7 @@ const UserServices = {
 
       const  listproduct = mongoose.model('sanphams', schema.Productschema)
           listproduct.findById(id).then((dataa)=>{
-              console.log(dataa)
+            // dataa.kich_thuoc = JSON.stringify(dataa.kich_thuoc)
               return res.render(path.join(__dirname+"../../views/Admin/detail.ejs"),{data:dataa})
           })
         
@@ -51,6 +51,35 @@ const UserServices = {
      
 
       return res.render(path.join(__dirname+"../../views/Admin/add.ejs"),{data:[]})
+        
+      
+    },
+
+    pedit: async (req, res) => {
+      var {id,name,brand,size,price,quantity} = req.body
+      console.log(id,name,brand,size,price,quantity)
+     
+      const  listpr = mongoose.model('sanphams', schema.Productschema)
+      listpr.findOneAndUpdate(
+          { _id: id},
+          {
+            ten: name,
+            thuong_hieu: brand,
+            gia: price,
+            kich_thuoc: JSON.parse(size),
+            so_luong_ton: quantity,
+          },
+          { new: true }
+      ).then((dataa)=>{
+          console.log(dataa)
+          if(dataa == null){
+            return res.redirect('/404')
+          }else{
+            return res.redirect('/admin/edit?id='+id)
+          }
+          
+      })
+      // return res.render(path.join(__dirname+"../../views/Admin/add.ejs"),{data:[]})
         
       
     },
