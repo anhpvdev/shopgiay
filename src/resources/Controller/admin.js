@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path')
 const checkauth = require("../Middleware/checkadmin");
 const AdminModel = require("../Model/admin")
+const productupload = require("../Middleware/upimage");
 
 
 const userRoutes = (app) => {
@@ -18,6 +19,9 @@ const userRoutes = (app) => {
   router.get('/add',checkauth.hightcheck,AdminModel.add)
 
   router.post('/edit',checkauth.hightcheck,AdminModel.pedit)
+  // router.post('/padd',checkauth.hightcheck,AdminModel.padd)
+
+  router.post('/padd',checkauth.hightcheck,productupload.single("images"),AdminModel.padd)
 
   router.get('/404',AdminModel.error)
 

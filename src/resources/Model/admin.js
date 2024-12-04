@@ -84,6 +84,40 @@ const UserServices = {
       
     },
 
+    padd: async (req, res) => {
+      var imagename = req.body.filename
+      console.log(imagename)
+      console.log("---------")
+      var {name,brand,size,price,quantity} = req.body
+      console.log(name,brand,size,price,quantity)
+
+      const  listpr = mongoose.model('sanphams', schema.Productschema)
+      
+      const newProduct = new listpr({
+        ten: name,
+        thuong_hieu: brand,
+        gia: price,
+        kich_thuoc: JSON.parse(size), // Giả định "size" là JSON string
+        so_luong_ton: quantity,
+        mau_sac: [],
+        loai: "test",
+        mo_ta: "",
+        hinh_anh: [imagename],
+        danh_gia: 0, 
+        nhan_xet: []
+      });
+
+      newProduct.save().then((data)=>{
+        console.log(data)
+          if(!data) return res.redirect('/404');
+          else return res.redirect('/admin');
+        
+      })
+
+        
+      
+    },
+
   
   
 
