@@ -84,6 +84,27 @@ const UserServices = {
       
     },
 
+    delete: async (req, res) => {
+      var {id} = req.body
+      console.log(id)
+      if(!id){
+        return res.redirect('/404');
+      }else{
+        const  listpr = mongoose.model('sanphams', schema.Productschema)
+        listpr.findByIdAndDelete(id).then((data)=>{
+          if(!data){
+            return res.redirect('/404');
+          }else{
+            return  res.redirect('/admin');
+          }
+        })
+             
+            
+      }
+    
+      
+    },
+
     padd: async (req, res) => {
       var imagename = req.body.filename
       console.log(imagename)

@@ -19,6 +19,7 @@ const userRoutes = (app) => {
   router.get('/add',checkauth.hightcheck,AdminModel.add)
 
   router.post('/edit',checkauth.hightcheck,AdminModel.pedit)
+  router.post('/delete',checkauth.hightcheck,AdminModel.delete)
   // router.post('/padd',checkauth.hightcheck,AdminModel.padd)
 
   router.post('/padd',checkauth.hightcheck,productupload.single("images"),AdminModel.padd)

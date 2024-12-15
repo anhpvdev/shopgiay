@@ -86,7 +86,12 @@
               <td>10</td>
               <td>
                 <button  class="btn btn-update" onclick="location.href='/admin/edit?id=<%= data[i].id %>'">Sửa</button>
-                <button  class="btn btn-delete" style="background-color: #e74c3c;">Xóa</button>
+                
+                  <form  action="/admin/delete" onsubmit="return checkdelete()" method="post">
+                    <input style="display: none;" name="id" type="text" value="<%= data[i].id %>">
+                    <button  class="btn btn-delete" style="background-color: #e74c3c;">Xóa</button>
+                  </form>
+                
               </td>
   
             </tr>
@@ -97,6 +102,19 @@
     </div>
   </div>
   <script>
+
+      function checkdelete(event) {
+
+        var confirmdelete =  confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")
+
+        if (!confirmdelete) {
+          return false;
+
+        }else{
+          return true;
+        }
+      }
+
     function editProduct(index) {
       alert('Chức năng sửa sản phẩm demo!');
     }
