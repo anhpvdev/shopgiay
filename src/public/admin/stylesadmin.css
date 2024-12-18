@@ -169,6 +169,11 @@ body {
   text-align: left;
 }
 
+.table td img{
+  width: 400px;
+  height: 400px;
+}
+
 .table th {
   background-color: #34495e;
   color: white;

@@ -12,6 +12,8 @@ const userRoutes = (app) => {
     res.render('../../views/Admin/login.ejs',{message:null});
   })
 
+  router.get('/logout',AdminModel.logout)
+
   router.get('/edit',checkauth.hightcheck,AdminModel.edit)
 
   router.post('/login',AdminModel.login)

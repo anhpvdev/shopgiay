@@ -144,9 +144,9 @@ const UserServices = {
 
   logout: async (req, res) => {
 
-    res.cookie('token', '');
+    res.cookie('a_token', '');
 
-        return res.redirect("/")
+    return res.redirect("/admin/login")
   },
 
   login: async (req, res) => {
