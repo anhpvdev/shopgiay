@@ -21,11 +21,7 @@ const UserServices = {
       const  listproduct = mongoose.model('sanphams', schema.Productschema)
             listproduct.find({}).then((dataa)=>{
             
-              if(req.login){
-                return res.render(path.join(__dirname+"../../views/Admin/home.ejs"),{data:dataa,user:req.login.id,sort:null})
-               }else{
-                 return res.render(path.join(__dirname+"../../views/Admin/home.ejs"),{data:dataa,user:null,sort:null})
-               }
+              return res.render(path.join(__dirname+"../../views/Admin/home.ejs"),{data:dataa.reverse(),user:req.login.id,sort:null})
                
             })
         
@@ -79,7 +75,6 @@ const UserServices = {
           }
           
       })
-      // return res.render(path.join(__dirname+"../../views/Admin/add.ejs"),{data:[]})
         
       
     },
@@ -118,7 +113,7 @@ const UserServices = {
         ten: name,
         thuong_hieu: brand,
         gia: price,
-        kich_thuoc: JSON.parse(size), // Giả định "size" là JSON string
+        kich_thuoc: JSON.parse(size),
         so_luong_ton: quantity,
         mau_sac: [],
         loai: "test",

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sửa Sản Phẩm</title>
+  <title>Thêm Sản Phẩm</title>
   <link rel="stylesheet" href="../../../public/admin/styleadmin.css">
 </head>
 <body>
   <div class="main">
-    <h1 class="title">Sửa Sản Phẩm</h1>
+    <h1 class="title">Thêm Sản Phẩm</h1>
 
     <!-- Form Section -->
     <form id="create-form" class="form"  method="post" action="/admin/padd" enctype="multipart/form-data">
@@ -57,6 +57,21 @@
 
   <script>
     const imagePreview = document.getElementById("image-preview");
+    const productImageInput = document.getElementById("product-image");
+
+    productImageInput.addEventListener("change", function () {
+      const file = this.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" class="uploaded-image">`;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imagePreview.innerHTML = `<p>Chưa có ảnh nào được chọn</p>`;
+      }
+    });
 
     // Format price input
     const productPriceInput = document.getElementById("product-price");
